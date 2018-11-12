@@ -34,4 +34,32 @@ class StairStepsCombinationCalculatorTest {
                         "1,2,1",
                         "1,1,2");
     }
+
+    @Test
+    void memoryOptimisedCombinationForShouldReturnAllPossibleCombinationsWhenStairStepsIs4() {
+        assertThat(StairStepsCombinationCalculator.memoryOptimisedCombinationsFor(4))
+                .containsOnly(
+                        "1,1,1,1",
+                        "2,1,1",
+                        "2,2",
+                        "1,2,1",
+                        "1,1,2");
+    }
+
+    @Test
+    void memoryOptimisedCombinationForShouldReturn2CombinationsWhenStairStepsIs2() {
+        assertThat(StairStepsCombinationCalculator.memoryOptimisedCombinationsFor(2))
+                .containsOnly("1,1", "2");
+    }
+
+    @Test
+    void memoryOptimisedCombinationForShouldReturnEmptyCombinationsWhenStairStepsIs0() {
+        assertThat(StairStepsCombinationCalculator.memoryOptimisedCombinationsFor(0)).containsOnly("");
+    }
+
+    @Test
+    void memoryOptimisedCombinationForShouldReturn1CombinationsWhenStairStepsIs1() {
+        assertThat(StairStepsCombinationCalculator.memoryOptimisedCombinationsFor(1))
+                .containsOnly("1");
+    }
 }

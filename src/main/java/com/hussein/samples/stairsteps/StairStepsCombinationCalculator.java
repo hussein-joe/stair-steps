@@ -17,6 +17,14 @@ public class StairStepsCombinationCalculator {
         return allStairCombinations;
     }
 
+    public static Set<String> memoryOptimisedCombinationsFor(final int stairSteps) {
+        Set<String> allStairCombinations = new HashSet<>();
+
+        calculateCombinations("", stairSteps, allStairCombinations);
+
+        return allStairCombinations;
+    }
+
     //A tail-recursive version which is safe on stack(this is a popular concept in Scala)
     // I am using recursion to calculate all combinations
     //Have 3 stopping conditions
@@ -46,6 +54,28 @@ public class StairStepsCombinationCalculator {
             calculateCombinations(currentCombinationBuffer,
                     elements.subList(i+2, elements.size()), accumulatedCombinations);
         }
+    }
+
+    //Another recursive approach that does not need a list of ones
+    //It keeps generating combinations until stair steps count finishes.
+    private static void calculateCombinations(final String previousCombinedElementsBuffer,
+                                              final int remainingStairSteps,
+                                              final Set<String> accumulatedCombinations) {
+        if ( remainingStairSteps == 0 ) {
+            accumulatedCombinations.add(previousCombinedElementsBuffer);
+            return;
+        }
+
+        if (  remainingStairSteps == 1 ) {
+            calculateCombinations(combineElements(previousCombinedElementsBuffer, "1"),
+                    0, accumulatedCombinations);
+            return;
+        }
+
+        calculateCombinations(combineElements(previousCombinedElementsBuffer, "2"),
+                remainingStairSteps-2, accumulatedCombinations);
+        calculateCombinations(combineElements(previousCombinedElementsBuffer, "1"),
+                remainingStairSteps - 1, accumulatedCombinations);
     }
 
     private static <T> String combineElements(final List<T> elements) {
